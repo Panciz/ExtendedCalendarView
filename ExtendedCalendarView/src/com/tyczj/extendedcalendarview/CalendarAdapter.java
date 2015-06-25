@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.format.Time;
 import android.view.LayoutInflater;
@@ -68,6 +68,7 @@ public class CalendarAdapter extends BaseAdapter{
 		return cal.get(Calendar.MONTH);
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -144,7 +145,7 @@ public class CalendarAdapter extends BaseAdapter{
 				if(colors.contains(2)){
 					blue.setVisibility(View.VISIBLE);
 				}
-				if(colors.contains(4)){
+				if(colors.contains(4)){ 
 					purple.setVisibility(View.VISIBLE);
 				}
 				if(colors.contains(5)){
