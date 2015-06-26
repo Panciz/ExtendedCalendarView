@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -76,10 +78,9 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.topMargin = 50;
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
-		prev = new ImageView(context);
+		prev = new ImageButton(context);
 		prev.setId(1);
 		prev.setLayoutParams(params);
-		prev.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
 		prev.setImageResource(R.drawable.navigation_previous_item);
 		prev.setOnClickListener(this);
 		base.addView(prev);
@@ -91,7 +92,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		month.setId(2);
 		month.setLayoutParams(params);
 		month.setTextAppearance(context, android.R.attr.textAppearanceLarge);
-		month.setText(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())+" "+cal.get(Calendar.YEAR));
+		month.setText(ExtendedCalendarView.capitalize(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))+" "+cal.get(Calendar.YEAR));
 		month.setTextSize(25);
 		
 		base.addView(month);
@@ -101,10 +102,9 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.topMargin = 50;
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
-		next = new ImageView(context);
+		next = new ImageButton(context);
 		next.setImageResource(R.drawable.navigation_next_item);
 		next.setLayoutParams(params);
-		next.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
 		next.setId(3);
 		next.setOnClickListener(this);
 		
@@ -119,11 +119,11 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.BELOW, base.getId());
 		calendar = new GridView(context);
 		calendar.setLayoutParams(params);
-		calendar.setVerticalSpacing(4);
+		calendar.setVerticalSpacing(2);
 		calendar.setHorizontalSpacing(4);
 		calendar.setNumColumns(7);
 		calendar.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-		calendar.setDrawSelectorOnTop(true);
+		calendar.setDrawSelectorOnTop(false);
 		
 		mAdapter = new CalendarAdapter(context,cal);
 		calendar.setAdapter(mAdapter);
@@ -220,9 +220,16 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 	
 	private void rebuildCalendar(){
 		if(month != null){
-			month.setText(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())+" "+cal.get(Calendar.YEAR));
+			month.setText(ExtendedCalendarView.capitalize(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))+" "+cal.get(Calendar.YEAR));
 			refreshCalendar();
 		}
+	}
+	
+	public static String capitalize(String str){
+		StringBuilder sb = new StringBuilder();
+		sb.append(str);
+		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0))); 
+		return sb.toString();
 	}
 	
 	/**

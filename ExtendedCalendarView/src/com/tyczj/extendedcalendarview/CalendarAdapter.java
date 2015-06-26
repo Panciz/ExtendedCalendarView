@@ -1,14 +1,18 @@
 package com.tyczj.extendedcalendarview;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,20 +81,23 @@ public class CalendarAdapter extends BaseAdapter{
 			v = vi.inflate(R.layout.day_of_week, null);
 			TextView day = (TextView)v.findViewById(R.id.textView1);
 			
+			DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+			String[] dayNames = symbols.getShortWeekdays();
+
 			if(position == 0){
-				day.setText(R.string.sunday);
+				day.setText(dayNames[Calendar.SUNDAY]);
 			}else if(position == 1){
-				day.setText(R.string.monday);
+				day.setText(dayNames[Calendar.MONDAY]);
 			}else if(position == 2){
-				day.setText(R.string.tuesday);
+				day.setText(dayNames[Calendar.TUESDAY]);
 			}else if(position == 3){
-				day.setText(R.string.wednesday);
+				day.setText(dayNames[Calendar.WEDNESDAY]);
 			}else if(position == 4){
-				day.setText(R.string.thursday);
+				day.setText(dayNames[Calendar.THURSDAY]);
 			}else if(position == 5){
-				day.setText(R.string.friday);
+				day.setText(dayNames[Calendar.FRIDAY]);
 			}else if(position == 6){
-				day.setText(R.string.saturday);
+				day.setText(dayNames[Calendar.SATURDAY]);
 			}
 			
 		}else{
@@ -184,6 +191,7 @@ public class CalendarAdapter extends BaseAdapter{
 	
 	public void refreshDays()
     {
+		long time = System.currentTimeMillis();
     	// clear items
     	dayList.clear();
     	
@@ -241,6 +249,8 @@ public class CalendarAdapter extends BaseAdapter{
         	dayNumber++;
         	dayList.add(d);
         }
+        
+        Log.d(this.getClass().getCanonicalName(), "Days refreshed in "+(System.currentTimeMillis()-time));
     }
 	
 //	public abstract static class OnAddNewEventClick{
