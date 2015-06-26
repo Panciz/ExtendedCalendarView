@@ -3,7 +3,6 @@ package com.tyczj.extendedcalendarview;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
@@ -107,6 +106,7 @@ public class CalendarAdapter extends BaseAdapter{
 			Calendar cal = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
 			Day d = dayList.get(position);
 			if(d.getYear() == cal.get(Calendar.YEAR) && d.getMonth() == cal.get(Calendar.MONTH) && d.getDay() == cal.get(Calendar.DAY_OF_MONTH)){
+
 				today.setVisibility(View.VISIBLE);
 			}else{
 				today.setVisibility(View.GONE);

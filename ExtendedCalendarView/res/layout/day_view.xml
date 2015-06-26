@@ -7,14 +7,18 @@
     android:minWidth="@dimen/min_cell_width" >
 
         <FrameLayout
-            android:layout_width="@dimen/text_height_width"
-            android:layout_height="@dimen/text_height_width"
-            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    android:minHeight="@dimen/min_cell_height"
+    android:minWidth="@dimen/min_cell_width"
+                android:layout_centerInParent="true"
             android:id="@+id/today_frame"
-            android:background="@drawable/today" />
+                android:background="@drawable/today" />
         <FrameLayout
-            android:layout_width="@dimen/text_height_width"
-            android:layout_height="@dimen/text_height_width"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+                android:minHeight="@dimen/min_cell_height"
+    android:minWidth="@dimen/min_cell_width"
             android:layout_centerInParent="true"
             android:id="@+id/event_day"
             android:background="@drawable/event_day" />
@@ -29,6 +33,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/date_number_text_color" />
 
+        
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="fill_parent"
