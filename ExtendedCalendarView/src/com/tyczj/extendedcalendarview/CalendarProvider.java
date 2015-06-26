@@ -23,10 +23,9 @@ public class CalendarProvider extends ContentProvider {
 	private static final String DATABASE_NAME = "Calendar";
 	private static final String EVENTS_TABLE = "events";
 	private static final int DATABASE_VERSION = 4;
-	private static final String  AUTHORITY = "com.tyczj.extendedcalendarview.calendarprovider";
-	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/events");
-	public static final Uri CONTENT_ID_URI_BASE = Uri.parse("content://" + AUTHORITY + "/events/");
-	private static final UriMatcher uriMatcher;
+	public static  Uri CONTENT_URI ;
+	public static  Uri CONTENT_ID_URI_BASE;
+	private static  UriMatcher uriMatcher;
 	
 	public static final String EVENT = "event";
 	public static final String LOCATION = "location";
@@ -41,6 +40,15 @@ public class CalendarProvider extends ContentProvider {
 	private static final HashMap<String, String> mMap;
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
+    
+    public static void init(String auth){
+    	CONTENT_URI = Uri.parse("content://" + auth + "/events");
+    	 CONTENT_ID_URI_BASE = Uri.parse("content://" + auth + "/events/");
+		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+		uriMatcher.addURI(auth,EVENTS_TABLE,1);
+		uriMatcher.addURI(auth,EVENTS_TABLE + "/#",2);
+		uriMatcher.addURI(auth, EVENTS_TABLE+"/#/#", 3);
+    }
     
     private static class DatabaseHelper extends SQLiteOpenHelper{
         DatabaseHelper(Context context) 
@@ -164,10 +172,7 @@ public class CalendarProvider extends ContentProvider {
 	}
 	
 	static{
-		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		uriMatcher.addURI(AUTHORITY,EVENTS_TABLE,1);
-		uriMatcher.addURI(AUTHORITY,EVENTS_TABLE + "/#",2);
-		uriMatcher.addURI(AUTHORITY, EVENTS_TABLE+"/#/#", 3);
+
 		
 		mMap = new HashMap<String, String>();
 		mMap.put(ID, ID);

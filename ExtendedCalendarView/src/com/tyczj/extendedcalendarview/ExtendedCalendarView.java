@@ -79,6 +79,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		prev = new ImageView(context);
 		prev.setId(1);
 		prev.setLayoutParams(params);
+		prev.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
 		prev.setImageResource(R.drawable.navigation_previous_item);
 		prev.setOnClickListener(this);
 		base.addView(prev);
@@ -103,6 +104,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		next = new ImageView(context);
 		next.setImageResource(R.drawable.navigation_next_item);
 		next.setLayoutParams(params);
+		next.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
 		next.setId(3);
 		next.setOnClickListener(this);
 		
@@ -115,7 +117,6 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		params.addRule(RelativeLayout.BELOW, base.getId());
-		
 		calendar = new GridView(context);
 		calendar.setLayoutParams(params);
 		calendar.setVerticalSpacing(4);
@@ -128,12 +129,12 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		calendar.setAdapter(mAdapter);
 		calendar.setOnTouchListener(new OnTouchListener() {
 			
-	        @Override
+	        @SuppressLint("ClickableViewAccessibility")
+			@Override
 	        public boolean onTouch(View v, MotionEvent event) {
 	            return calendarGesture.onTouchEvent(event);
 	        }
 	    });
-		
 		addView(calendar);
 	}
 

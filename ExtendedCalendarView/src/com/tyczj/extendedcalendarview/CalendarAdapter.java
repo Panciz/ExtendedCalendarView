@@ -128,7 +128,9 @@ public class CalendarAdapter extends BaseAdapter{
 			
 			Day day = dayList.get(position);
 			
+			FrameLayout event = (FrameLayout)v.findViewById(R.id.event_day);
 			if(day.getNumOfEvenets() > 0){
+				event.setVisibility(View.VISIBLE);
 				Set<Integer> colors = day.getColors();
 				
 				iv.setVisibility(View.INVISIBLE);
@@ -159,6 +161,7 @@ public class CalendarAdapter extends BaseAdapter{
 				}
 				
 			}else{
+				event.setVisibility(View.GONE);
 				iv.setVisibility(View.INVISIBLE);
 				blue.setVisibility(View.INVISIBLE);
 				purple.setVisibility(View.INVISIBLE);
