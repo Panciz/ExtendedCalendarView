@@ -65,13 +65,32 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		init();
 	}
 	
+	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
+	/**
+	 * Generate a value suitable for use in {@link #setId(int)}.
+	 * This value will not collide with ID values generated at build time by aapt for R.id.
+	 *
+	 * @return a generated ID value
+	 */
+	public static int generateViewId() {
+		for (;;) {
+			final int result = sNextGeneratedId.get();
+			// aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+			int newValue = result + 1;
+			if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+			if (sNextGeneratedId.compareAndSet(result, newValue)) {
+				return result;
+			}
+		}
+	}
+	
 	private void init(){
 		this.setLayoutParams(new  LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		cal = Calendar.getInstance();
 		base = new RelativeLayout(context);
 		base.setLayoutParams(new  LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		base.setMinimumHeight(50);
-		base.setId(4);
+		base.setId(generateViewId());
 		
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		params.leftMargin = 16;
@@ -79,7 +98,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
 		prev = new ImageButton(context);
-		prev.setId(1);
+		prev.setId(generateViewId());
 		prev.setLayoutParams(params);
 		prev.setImageResource(R.drawable.navigation_previous_item);
 		prev.setOnClickListener(this);
@@ -89,9 +108,9 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
 		month = new TextView(context);
-		month.setId(2);
+		month.setId(generateViewId());
 		month.setLayoutParams(params);
-		month.setTextAppearance(context, android.R.attr.textAppearanceLarge);
+		//month.setTextAppearance(context, android.R.attr.textAppearanceLarge);
 		month.setText(ExtendedCalendarView.capitalize(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))+" "+cal.get(Calendar.YEAR));
 		month.setTextSize(25);
 		
@@ -105,7 +124,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		next = new ImageButton(context);
 		next.setImageResource(R.drawable.navigation_next_item);
 		next.setLayoutParams(params);
-		next.setId(3);
+		next.setId(generateViewId());
 		next.setOnClickListener(this);
 		
 		base.addView(next);
