@@ -2,20 +2,22 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://jcenter.bintray.com" }
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
 
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 
 android {
 
-    compileSdkVersion 19
+    compileSdkVersion 23
     buildToolsVersion "25.0.2"
 	lintOptions {
         disable 'InvalidPackage'
