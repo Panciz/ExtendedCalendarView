@@ -76,7 +76,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 	 *
 	 * @return a generated ID value
 	 */
-	public static int generateViewId() {
+	public static int generateViewIdCustom() {
 		for (;;) {
 			final int result = sNextGeneratedId.get();
 			// aapt-generated IDs have the high byte nonzero; clamp to the range under that.
@@ -94,7 +94,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		base = new RelativeLayout(context);
 		base.setLayoutParams(new  LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		base.setMinimumHeight(50);
-		base.setId(ExtendedCalendarView.generateViewId());
+		base.setId(ExtendedCalendarView.generateViewIdCustom());
 		
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		params.leftMargin = 16;
@@ -102,7 +102,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
 		prev = new ImageButton(context);
-        MOUNT_PREV_ID=ExtendedCalendarView.generateViewId();
+        MOUNT_PREV_ID=ExtendedCalendarView.generateViewIdCustom();
 		prev.setId(MOUNT_PREV_ID);
 		prev.setLayoutParams(params);
 		prev.setImageResource(R.drawable.navigation_previous_item);
@@ -113,7 +113,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		params.addRule(RelativeLayout.CENTER_VERTICAL);
 		month = new TextView(context);
-        month.setId(ExtendedCalendarView.generateViewId());
+        month.setId(ExtendedCalendarView.generateViewIdCustom());
 		month.setLayoutParams(params);
 		month.setTextAppearance(context, android.R.style.TextAppearance_Large);
 		month.setText(ExtendedCalendarView.capitalize(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()))+" "+cal.get(Calendar.YEAR));
@@ -129,7 +129,7 @@ public class ExtendedCalendarView extends RelativeLayout implements OnItemClickL
 		next = new ImageButton(context);
 		next.setImageResource(R.drawable.navigation_next_item);
 		next.setLayoutParams(params);
-        MOUNT_NEXT_ID=ExtendedCalendarView.generateViewId();
+        MOUNT_NEXT_ID=ExtendedCalendarView.generateViewIdCustom();
         next.setId(MOUNT_NEXT_ID);
 		next.setOnClickListener(this);
 		
